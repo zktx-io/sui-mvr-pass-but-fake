@@ -30,7 +30,7 @@ The modal interface used during version creation includes the following disclaim
 > **"This does not verify the source, it only verifies the configuration, and can end up with many false positives."**
 
 📸 **Screenshot: Validation warning modal**  
-<img src="./screenshots/modal-warning.png" alt="Validation Warning Modal" width="600"/>
+<img src="./screenshots/modal-warning.png" alt="Validation Warning Modal" width="480"/>
 
 Despite this, users can trivially satisfy the validator by submitting a **fabricated `Move.lock` file** pointing to existing framework packages — even when **no corresponding source or module code** exists in the repo.
 
@@ -45,7 +45,7 @@ This repository includes only:
 Nonetheless, the version submission **successfully passed** MVR validation.
 
 📸 **Screenshot: Validation passed**  
-<img src="./screenshots/validation-passed.png" alt="Validation Passed" width="600"/>
+<img src="./screenshots/validation-passed.png" alt="Validation Passed" width="480"/>
 
 ## 🧩 Conclusion
 

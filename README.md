@@ -66,4 +66,4 @@ This repository exists as a **practical case** for evaluating and improving that
 
 # 🔍 Learn More
 
-📚 [docs.zktx.io/slsa/mvr](https://docs.zktx.io/slsa/mvr): For a deeper look into how this provenance system works and how it integrates with MVR and SLSA.
+- [docs.zktx.io/slsa/mvr](https://docs.zktx.io/slsa/mvr): For a deeper look into how this provenance system works and how it integrates with MVR and SLSA.

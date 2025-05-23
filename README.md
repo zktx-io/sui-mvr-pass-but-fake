@@ -58,3 +58,12 @@ To resolve this, validation should move toward **cryptographically verifiable pr
 - **Signature verification** of build output and repository state
 
 This repository exists as a **practical case** for evaluating and improving that direction.
+
+# 🔗 Related Repositories
+
+- [sui-mvr-provenance](https://github.com/zktx-io/sui-mvr-provenance): Full provenance design and examples  
+- [sui-mvr-example](https://github.com/zktx-io/sui-mvr-example): A proper, verifiable reference implementation
+
+# 🔍 Learn More
+
+📚 [docs.zktx.io/slsa/mvr](https://docs.zktx.io/slsa/mvr): For a deeper look into how this provenance system works and how it integrates with MVR and SLSA.

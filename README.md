@@ -2,68 +2,75 @@
 
 ## 1. Purpose of This Repository
 
-This repository (`sui-mvr-pass-but-fake`) is a **demonstration of a validation weakness** in the **Move Verifiable Registry (MVR)**.  
-It is intentionally crafted to contain **no source code**, yet still **successfully passes** the current **validation logic** in the MVR version creation process.
+This repository (`sui-mvr-pass-but-fake`) is a **demonstration of a validation limitation** in the current **Move Registry (MVR)** flow.
 
-The purpose of this repository is to highlight that:
+It is intentionally configured to contain **no source code**, yet it still **successfully passes** MVR’s version creation process by submitting a valid-looking `Move.lock` file.
 
-- **Validation currently checks configuration, not source authenticity**
-- Users can register **unverifiable or misleading entries** with little resistance
-- **Trust in the registry system is dependent on user honesty**, not cryptographic enforcement
+This is **not intended as an attack**, but rather as a **practical test case** to explore how the current system behaves under minimal input.
 
-## 2. Context: The Limitations of Current Validation
+The goal is to highlight that:
 
-The MVR validator performs the following checks:
+- **MVR validation focuses on configuration, not source integrity**
+- **Honest submission is currently assumed**, but not enforced
+- There’s an opportunity to **enhance trust** through stronger, cryptographic provenance
 
-- Verifies that the GitHub repository is **public**
-- Downloads the `Move.lock` file from the specified commit
-- Confirms matching `published-version` and `original-published-id`
+## 2. Context: What MVR Currently Checks
 
-However, it **does not validate**:
+During version creation, MVR performs several reasonable checks:
 
-- Whether the commit actually **built the registered on-chain package**
-- Whether the repository contains any **source code**
-- Whether the `Move.lock` file reflects a **real build**
+- Ensures the GitHub repository is **public**
+- Downloads the `Move.lock` file at the specified commit
+- Validates that fields like `published-version` and `original-published-id` match
 
-The modal interface used during version creation includes the following disclaimer:
+However, it **does not** check:
+
+- Whether the commit actually **built the deployed package**
+- Whether any **source code exists** in the repository
+- Whether the `Move.lock` reflects a **real or reproducible build**
+
+The version submission UI already includes the following helpful disclaimer:
 
 > **"This does not verify the source, it only verifies the configuration, and can end up with many false positives."**
 
-📸 **Screenshot: Validation warning modal**  
+📸 **Validation Warning Modal**  
 <img src="./screenshots/modal-warning.png" alt="Validation Warning Modal" width="480"/>
 
-Despite this, users can trivially satisfy the validator by submitting a **fabricated `Move.lock` file** pointing to existing framework packages — even when **no corresponding source or module code** exists in the repo.
+This warning is clear — and appreciated.  
+Yet, as this repository shows, even a completely empty project can still **pass validation with no friction**, as long as it includes a syntactically valid `Move.lock` file.
 
-## 3. Successful Validation Despite No Code
+## 3. Validation Passes with No Code
 
-This repository includes only:
+This repository contains only:
 
 - A `Move.lock` file with **hardcoded dependency metadata**
 - **No** `sources/` directory
 - **No** modules or transaction scripts
 
-Nonetheless, the version submission **successfully passed** MVR validation.
+Despite this, the registry **accepts the submission as valid**:
 
-📸 **Screenshot: Validation passed**  
+📸 **Validation Passed Screenshot**  
 <img src="./screenshots/validation-passed.png" alt="Validation Passed" width="480"/>
+
+This doesn’t mean the registry is broken —  
+but it does demonstrate that **proof of configuration** is not the same as **proof of build or source authenticity**.
 
 ## 🧩 Conclusion
 
-This test case demonstrates that **the current registry is vulnerable to unverified submissions**.  
-While **user honesty is assumed**, this assumption does not scale in a **trust-minimized ecosystem**.
+This example highlights a **gap between configuration-based validation and cryptographically verifiable provenance**.
 
-To resolve this, validation should move toward **cryptographically verifiable provenance**, such as:
+The current MVR design provides a good starting point, especially with visible disclaimers and guardrails.  
+But to **scale trust in a decentralized ecosystem**, we believe it’s important to evolve toward:
 
-- **GitHub-based CI workflows** that sign `.intoto.jsonl` provenance files
-- **Signature verification** of build output and repository state
+- **Automated GitHub CI workflows** that generate `.intoto.jsonl` provenance files  
+- **Signature verification** that proves the connection between source, build, and on-chain deployment
 
-This repository exists as a **practical case** for evaluating and improving that direction.
+We present this repository not as a criticism, but as a **constructive prompt** for the ecosystem to explore what's possible next.
 
-# 🔗 Related Repositories
+## 🔗 Related Repositories
 
 - [sui-mvr-provenance](https://github.com/zktx-io/sui-mvr-provenance): Full provenance design and examples  
-- [sui-mvr-example](https://github.com/zktx-io/sui-mvr-example): A proper, verifiable reference implementation
+- [sui-mvr-example](https://github.com/zktx-io/sui-mvr-example): A verifiable reference implementation with reproducible builds
 
-# 🔍 Learn More
+## 🔍 Learn More
 
-- [docs.zktx.io/slsa/mvr](https://docs.zktx.io/slsa/mvr): For a deeper look into how this provenance system works and how it integrates with MVR and SLSA.
+- [docs.zktx.io/slsa/mvr](https://docs.zktx.io/slsa/mvr): Detailed documentation on how provenance workflows integrate with MVR and SLSA
